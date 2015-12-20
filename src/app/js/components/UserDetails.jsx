@@ -5,6 +5,8 @@ var Reflux      = require('reflux');
 var UserActions = require('./../actions/UserActions');
 var UserStore   = require('./../stores/UserStore');
 var LoggedOut   = require('./UserDetails/LoggedOut');
+var LoggedIn    = require('./UserDetails/LoggedIn');
+var Register    = require('./UserDetails/Register');
 
 var UserDetails = React.createClass({
     mixins: [Reflux.connect(UserStore, 'userStore')],
@@ -38,8 +40,25 @@ var UserDetails = React.createClass({
 
     render: function() {
         console.log("UserDetails: render ["+this.state.userStore.state+"]");
+        var renderState = 'NOT_LOGGED_IN';
+        switch(this.state.userStore.state) {
+            case 'NOT_LOGGED_IN':
+                console.log("UserDetails: case NOT_LOGGED_IN");
+                renderState = <LoggedOut />
+                break;
+            case 'LOGGED_IN':
+                console.log("UserDetails: case LOGGED_IN");
+                renderState = <LoggedIn />
+                break;
+            case 'REGISTER':
+                console.log("UserDetails: case REGISTER");
+                renderState = <Register />
+                break;
+        }
         return (
-            <LoggedOut visible={ this.state.userStore.state === 'NOT_LOGGED_IN' } />
+            <div>
+              {renderState}
+            </div>
         )
     }
 });

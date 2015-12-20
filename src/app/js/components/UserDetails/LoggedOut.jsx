@@ -10,27 +10,25 @@ var LoggedOut = React.createClass({
         UserActions.loginWithPassword(username.value, password.value);
         console.log("LoggedOut: handleLoginSubmit end");
     },
+    register: function(event) {
+        console.log("LoggedOut: register");
+        event.preventDefault();
+        UserActions.register();
+    },
 
     render: function() {
         console.log("LoggedOut: render");
 
-        if (this.props.visible) {
-            return (
-                <div>
-                  <form onSubmit={ this.handleLoginSubmit }>
-                    <input placeholder="Username" ref="username" type="text" />
-                    <input placeholder="Password" ref="password" type="password" />
-                    <input type="submit" value="Login" />
-                    <a href="">register</a>
-                  </form>
-                </div>
-            );
-        }
-        else {
-            return (
-                <div>hello</div>
-            );
-        }
+        return (
+            <div>
+              <form onSubmit={ this.handleLoginSubmit }>
+                <input placeholder="Username" ref="username" type="text" />
+                <input placeholder="Password" ref="password" type="password" />
+                <input type="submit" value="Login" />
+                <a href="" onClick={ this.register} >register</a>
+              </form>
+            </div>
+        );
     }
 });
 

@@ -35,7 +35,8 @@ var UserStore = Reflux.createStore({
     },
     register: function() {
         console.log("UserStore: register");
-
+        this.user.state = 'REGISTER';
+        this.trigger(this.user);
     },
     forgotPassword: function() {
         console.log("UserStore: forgotPassword");
