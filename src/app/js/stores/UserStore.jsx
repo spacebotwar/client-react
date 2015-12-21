@@ -1,8 +1,8 @@
 'use strict';
 
 var Reflux      = require('reflux');
-var UserActions = require('../actions/UserActions');
-
+var UserActions = require('js/actions/UserActions');
+var _           = require('lodash');
 
 var UserStore = Reflux.createStore({
     listenables: UserActions,
@@ -21,8 +21,10 @@ var UserStore = Reflux.createStore({
     },
     onLoginWithPassword: function(username, password) {
         console.log("UserStore: loginWithPassword ["+username+"]["+password+"]");
-        this.state.username = username;
-        this.state.password = password;
+        _.assign(this.state, {
+            username:   username,
+            password:   password
+        });
         if (username == 'icy' && password == 'secret') {
             console.log("UserStore: correct password");
             this.state.mode = 'LOGGED_IN';
@@ -32,10 +34,12 @@ var UserStore = Reflux.createStore({
     },
     onRegister: function(username, password, email) {
         console.log("UserStore: register ["+username+"]["+password+"]["+email+"]");
-        this.state.username = username;
-        this.state.password = password;
-        this.state.email    = email;
-        this.state.mode     = 'LOGGED_IN';
+        _.assign(this.state, {
+            username:   username,
+            password:   password,
+            email:      email,
+            mode:       'LOGGED_IN'
+        });
         this.trigger(this.state);
         console.log("UserStore: after trigger");
     },

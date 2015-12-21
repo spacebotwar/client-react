@@ -2,8 +2,8 @@
 
 var React       = require('react');
 var Reflux      = require('reflux');
-var UserActions = require('./../actions/UserActions');
-var UserStore   = require('./../stores/UserStore');
+var UserActions = require('js/actions/UserActions');
+var UserStore   = require('js/stores/UserStore');
 var LoggedOut   = require('./UserDetails/LoggedOut');
 var LoggedIn    = require('./UserDetails/LoggedIn');
 
