@@ -1,32 +1,49 @@
-var React               = require('react');
+'use strict';
+
+var React           = require('react');
+var Reflux          = require('reflux');
+var LogInForm       = require('./LoggedOut/LogInForm');
+var RegisterForm    = require('./LoggedOut/RegisterForm');
 var UserActions         = require('./../../actions/UserActions');
 
 var LoggedOut = React.createClass({
-    handleLoginSubmit: function (event) {
-        console.log("LoggedOut: handleLoginSubmit");
-        event.preventDefault();
-        var username = this.refs.username.getDOMNode();
-        var password = this.refs.password.getDOMNode();
-        UserActions.loginWithPassword(username.value, password.value);
-        console.log("LoggedOut: handleLoginSubmit end");
+    getInitialState: function() {
+        return {
+            mode:   'LOG_IN_FORM'
+        };
     },
-    register: function(event) {
-        console.log("LoggedOut: register");
+
+    eventClickRegister: function(event) {
+        console.log("LoggedOut: eventClickRegister");
         event.preventDefault();
-        UserActions.register();
+        this.setState({mode: 'REGISTER_FORM'});
+    },
+
+    eventSubmitLogin: function(event, username, password) {
+        console.log("LoggedOut: eventLogin");
+        UserActions.loginWithPassword(username, password);
+    },
+
+    eventSubmitRegister: function(event, username, password, email) {
+        console.log("LoggedOut: eventRegister");
+        UserActions.register(username, password, email);
+    },
+
+    eventClickRegisterCancel: function(event) {
+        console.log("LoggedOut: render");
+        event.preventDefault();
+        this.setState({mode: 'LOG_IN_FORM'});
     },
 
     render: function() {
-        console.log("LoggedOut: render");
-
+        console.log("LoggedOut: render ["+this.state.mode+"]");
+        var renderState = <LogInForm eventSubmitLogin={this.eventSubmitLogin} eventClickRegister={this.eventClickRegister} />;
+        if (this.state.mode == 'REGISTER_FORM') {
+            renderState = <RegisterForm eventSubmitRegister={this.eventSubmitRegister} eventClickRegisterCancel={this.eventClickRegisterCancel} />;
+        }
         return (
             <div>
-              <form onSubmit={ this.handleLoginSubmit }>
-                <input placeholder="Username" ref="username" type="text" />
-                <input placeholder="Password" ref="password" type="password" />
-                <input type="submit" value="Login" />
-                <a href="" onClick={ this.register} >register</a>
-              </form>
+              {renderState}
             </div>
         );
     }

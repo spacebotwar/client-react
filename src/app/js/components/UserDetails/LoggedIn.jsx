@@ -14,7 +14,7 @@ var LoggedIn = React.createClass({
 
         return (
             <div>
-              Hello Iain <a href="" onClick={ this.handleLogout }>logout</a>
+              Hello { this.props.username } <a href="" onClick={ this.handleLogout }>logout</a>
             </div>
         );
     }

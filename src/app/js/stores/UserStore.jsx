@@ -5,45 +5,45 @@ var UserActions = require('../actions/UserActions');
 
 
 var UserStore = Reflux.createStore({
-    listenables: [UserActions],
+    listenables: UserActions,
 
     init: function() {
-        this.user = this.getInitialState();
+        this.state = this.getInitialState();
     },
+
     getInitialState: function() {
         return {
-            state:      'NOT_LOGGED_IN',
+            mode:      'NOT_LOGGED_IN',
             username:   '',
             email:      '',
             password:   ''
         };
     },
-    loginWithPassword: function(username, password) {
-        console.log("UserStore: loginWithPassword");
-        this.user.username = username;
-        this.user.password = password;
+    onLoginWithPassword: function(username, password) {
+        console.log("UserStore: loginWithPassword ["+username+"]["+password+"]");
+        this.state.username = username;
+        this.state.password = password;
         if (username == 'icy' && password == 'secret') {
-            this.user.state = 'LOGGED_IN';
+            console.log("UserStore: correct password");
+            this.state.mode = 'LOGGED_IN';
         }
-        this.trigger(this.user);
+        this.trigger(this.state);
         console.log("UserStore: after trigger");
     },
-    logout: function() {
+    onRegister: function(username, password, email) {
+        console.log("UserStore: register ["+username+"]["+password+"]["+email+"]");
+        this.state.username = username;
+        this.state.password = password;
+        this.state.email    = email;
+        this.state.mode     = 'LOGGED_IN';
+        this.trigger(this.state);
+        console.log("UserStore: after trigger");
+    },
+    onLogout: function() {
         console.log("UserStore: logout");
-        this.init();
-        this.trigger(this.user);
+        this.state = this.getInitialState();
+        this.trigger(this.state);
     },
-    register: function() {
-        console.log("UserStore: register");
-        this.user.state = 'REGISTER';
-        this.trigger(this.user);
-    },
-    forgotPassword: function() {
-        console.log("UserStore: forgotPassword");
-        this.user.state = 'NOT_LOGGED_IN';
-        this.trigger(this.user);
-    },
-
 });
 
 module.exports = UserStore;
