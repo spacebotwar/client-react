@@ -2,9 +2,10 @@ var gulp        = require('gulp');
 var gutil       = require('gulp-util');
 var babelify    = require('babelify');
 var source      = require('vinyl-source-stream');
-var browserify  = require('browserify');
+var browserifyInc = require('browserify-incremental');
 var watchify    = require('watchify');
 var browserSync = require('browser-sync').create();
+var path        = require('path');
 
 var paths = {
     HTML: 'app/index.html',
@@ -18,12 +19,11 @@ var paths = {
 
 gulp.task('build', function() {
 
-    return browserify({
+    return browserifyInc({
         extensions: ['js','jsx'],
         entries: paths.ENTRY_POINT,
-        debug: true
-       // paths: './bower_components'
-
+        debug: true,
+        cachefile: path.join(__dirname, 'browserify-cache.json')
     })
         .transform(babelify.configure({
             ignore: /(bower_components)|(node_modules)/

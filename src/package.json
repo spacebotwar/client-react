@@ -8,6 +8,9 @@
     "type": "git",
     "url": "https://github.com/plainblack/Lacuna-Web-Client"
   },
+  "babel": {
+    "presets": ["react", "es2015"]
+  },
   "author": "Iain C Docherty <sbw@iain-docherty.com>",
   "bugs": {
     "url": "https://github.com/plainblack/Lacuna-Server-Open/issues"
