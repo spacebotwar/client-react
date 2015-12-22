@@ -1,5 +1,5 @@
 var React               = require('react');
-var UserActions         = require('js/actions/UserActions');
+var UserActions         = require('js/actions/UserActions.jsx');
 
 var Register = React.createClass({
 
