@@ -10,9 +10,9 @@ src/node_modules/*
 bower_components/
 
 # Built JS and CSS files.
-lacuna/
+src/public
 
 # Cache to speed up the build process.
-browserify-cache.json
+src/browserify-cache.json
 
 index.html
