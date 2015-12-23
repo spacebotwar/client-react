@@ -2,13 +2,15 @@
 
 var React       = require('react');
 var Reflux      = require('reflux');
-var UserActions = require('js/actions/UserActions');
-var UserStore   = require('js/stores/UserStore');
-var LoggedOut   = require('./UserDetails/LoggedOut');
-var LoggedIn    = require('./UserDetails/LoggedIn');
+var UserActions = require('js/actions/UserActions.jsx');
+var UserStore   = require('js/stores/UserStore.jsx');
+var LoggedOut   = require('./UserDetails/LoggedOut.jsx');
+var LoggedIn    = require('./UserDetails/LoggedIn.jsx');
 
 var UserDetails = React.createClass({
-    mixins: [Reflux.connect(UserStore, 'userStore')],
+    mixins: [
+        Reflux.connect(UserStore, 'userStore'),
+    ],
 
     render: function() {
         var user = this.state.userStore;

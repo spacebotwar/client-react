@@ -2,9 +2,9 @@
 
 var React           = require('react');
 var Reflux          = require('reflux');
-var LogInForm       = require('./LoggedOut/LogInForm');
-var RegisterForm    = require('./LoggedOut/RegisterForm');
-var UserActions     = require('js/actions/UserActions');
+var LogInForm       = require('./LoggedOut/LogInForm.jsx');
+var RegisterForm    = require('./LoggedOut/RegisterForm.jsx');
+var UserActions     = require('js/actions/UserActions.jsx');
 
 var LoggedOut = React.createClass({
     getInitialState: function() {

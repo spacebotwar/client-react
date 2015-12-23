@@ -1,8 +1,9 @@
 'use strict';
 
 var Reflux      = require('reflux');
-var UserActions = require('js/actions/UserActions');
+var UserActions = require('js/actions/UserActions.jsx');
 var _           = require('lodash');
+
 
 var UserStore = Reflux.createStore({
     listenables: UserActions,
