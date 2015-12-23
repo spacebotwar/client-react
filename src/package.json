@@ -8,6 +8,9 @@
     "type": "git",
     "url": "https://github.com/plainblack/Lacuna-Web-Client"
   },
+  "scripts": {
+      "build": "webpack"
+  },
   "babel": {
     "presets": ["react", "es2015"]
   },
