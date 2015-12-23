@@ -4,7 +4,8 @@ var path = require('path');
 module.exports = {
     entry: path.resolve(__dirname, 'app/js/main.js'),
     output: {
-        path: path.resolve(__dirname, 'public'),
+        path: path.resolve(__dirname, 'build'),
+        publicPath: '/',
         filename: 'bundle.js',
     },
     module: {
@@ -12,5 +13,9 @@ module.exports = {
             test: /\.jsx?$/,
             loader: 'babel'
         }]
+    },
+    devServer: {
+        host: '0.0.0.0',
+        port: 8080
     }
 };

@@ -1,1 +1,1 @@
-docker build -t lwc .
+docker build -t sbw-client .
