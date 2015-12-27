@@ -17,13 +17,31 @@ var UserStore = Reflux.createStore({
 
     wsOnMessage: function (event) {
         console.log("UserStore: message ["+event.data+"]");
+        var json = JSON.parse(event.data);
+        var func = json.route;
+        func = 'ws' + func.replace(/\//g,'_');
+        console.log("Userstore: func ["+func+"]");
+        this[func](json.content);
+    },
+
+    ws_: function(data) {
+        console.log("UserStore: ws_");
+    },
+    ws_client_code: function(data) {
+        console.log("UserStore: ws_client_code");
+        this.clientCode = data.client_code;
+        var userStore = JSON.stringify({
+            clientCode: this.clientCode
+        });
+        console.log("UserStore: set userStore ["+userStore+"]");
+        localStorage.setItem('UserStore', userStore) 
     },
 
     // TODO Look at doing this with promises.
     wsOpen: function(event) {
         this.state.wsState = 'NOT_CONNECTED';
         // Validate the clientCode
-        var clientCode = this.state.localStore.clientCode || "bad";
+        var clientCode = this.state.clientCode || "bad";
         console.log("UserStore: clientCode needs to be initialized");
         this.ws.send(JSON.stringify({
             "route":  "/client_code",
@@ -35,13 +53,15 @@ var UserStore = Reflux.createStore({
     },
 
     getInitialState: function() {
+        var userStore = JSON.parse(localStorage.getItem('UserStore') || '{}');
+
         return {
-            mode:      'NOT_LOGGED_IN',
-            username:   '',
-            email:      '',
-            password:   '',
-            localStore: JSON.parse(localStorage.getItem('UserStore') || '{}'),
-            wsState:    'NOT_CONNECTED'
+            mode:           'NOT_LOGGED_IN',
+            username:       '',
+            email:          '',
+            password:       '',
+            clientCode:     userStore.clientCode,
+            wsState:        'NOT_CONNECTED'
         };
     },
     onLoginWithPassword: function(username, password) {
