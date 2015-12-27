@@ -9,11 +9,14 @@
     "url": "https://github.com/plainblack/Lacuna-Web-Client"
   },
   "scripts": {
-      "build": "webpack",
-      "dev": "webpack-dev-server --devtool eval --display-error-details --inline --progress --colors --hot --content-base build"
+    "build": "webpack",
+    "dev": "webpack-dev-server --devtool eval --display-error-details --inline --progress --colors --hot --content-base build"
   },
   "babel": {
-    "presets": ["react", "es2015"]
+    "presets": [
+      "react",
+      "es2015"
+    ]
   },
   "author": "Iain C Docherty <sbw@iain-docherty.com>",
   "bugs": {
@@ -44,11 +47,13 @@
     "reactify": "1.1.0",
     "reflux": "0.2.7",
     "validator": "4.1.0",
-    "vinyl-source-stream": "1.1.0"
+    "vinyl-source-stream": "1.1.0",
+    "ws": "^0.8.1",
+    "socket.io":  "1.3.7"
   },
   "devDependencies": {
     "babel-loader": "^6.2.0",
-    "babel-core": "^6.3.21", 
+    "babel-core": "^6.3.21",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
