@@ -7,10 +7,10 @@ var UserActions = Reflux.createActions([
     'loginWithEmail',
     'register',
     'logout',
-    'ws_client_code',
-    'ws_login_with_password',
-    'ws_register',
-    'ws_'
+    'serverClientCode',
+    'serverLoginWithPassword',
+    'serverRegister',
+    'server'
 ]);
 
 // TODO this should come from a configuration
@@ -23,7 +23,13 @@ ws.onmessage = function() {
     console.log("UserActions: message ["+event.data+"]");
     var json = JSON.parse(event.data);
     var func = json.route;
-    func = 'ws' + func.replace(/\//g,'_');
+    // Lose the first '/' and replace all others with '_'
+    func = func.slice(1);
+    func = func.replace(/\//g,'_');
+    // Capitalize First Letter and prepend 'server'
+    func = func.charAt(0).toUpperCase() + func.slice(1);
+    func = 'server' + func;
+
     console.log("Userstore: func ["+func+"]");
     // Convert the route into an action
     UserActions[func](json.content); 
@@ -33,7 +39,7 @@ ws.onopen = function(event) {
     // Validate the clientCode
     console.log("UserActions: clientCode needs to be initialized");
     ws.send(JSON.stringify({
-        "route":  "/client_code",
+        "route":  "/clientCode",
         "content":  {
             "msg_id" :      "123",
             "client_code" : clientCode
@@ -41,8 +47,8 @@ ws.onopen = function(event) {
     }));
 };
 
-UserActions.ws_client_code.listen(function(content) {
-    console.log("UserActions:ws_client_code ["+content.client_code+"]");
+UserActions.serverClientCode.listen(function(content) {
+    console.log("UserActions:ws_clientCode ["+content.client_code+"]");
     clientCode = content.client_code;
 });
 
@@ -50,7 +56,7 @@ UserActions.ws_client_code.listen(function(content) {
 UserActions.loginWithPassword.listen(function(username, password) {
     console.log("UserActions:loginWithPassword");
     ws.send(JSON.stringify({
-        "route":        "/login_with_password",
+        "route":        "/loginWithPassword",
         "content": {
             "client_code" :     clientCode,
             "username" :        username,

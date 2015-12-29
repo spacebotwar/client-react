@@ -24,18 +24,8 @@ var UserStore = Reflux.createStore({
         };
     },
     
-    onLoginWithPassword: function(username, password) {
-        console.log("UserStore: loginWithPassword ["+username+"]["+password+"]");
-        _.assign(this.state, {
-            username:   username,
-            password:   password
-        });
-
-        this.trigger(this.state);
-        console.log("UserStore: after trigger");
-    },
-    onWs_login_with_password: function(content) {
-        console.log("UserStore: ws_login_with_password");
+    onServerLoginWithPassword: function(content) {
+        console.log("UserStore: onServerLoginWithPassword");
         if (content.code === 0) {
             console.log("UserStore: Success "+content.message);
             _.assign(this.state, {
@@ -47,19 +37,8 @@ var UserStore = Reflux.createStore({
         }
     },
 
-    onRegister: function(username, password, email) {
-        console.log("UserStore: register ["+username+"]["+password+"]["+email+"]");
-        _.assign(this.state, {
-            username:   username,
-            password:   password,
-            email:      email,
-        });
-        this.trigger(this.state);
-        console.log("UserStore: after trigger");
-    },
-    
-    onWs_register: function(content) {
-        console.log("UserStore: ws_register");
+    onServerRegister: function(content) {
+        console.log("UserStore: onServerRegister");
         if (content.code === 0) {
             console.log("UserStore: Success "+content.message);
             _.assign(this.state, {
