@@ -7,10 +7,12 @@ var UserActions = Reflux.createActions([
     'loginWithEmail',
     'register',
     'logout',
+
+    // The following are all actions triggered by a server Web Socket message
     'serverClientCode',
     'serverLoginWithPassword',
     'serverRegister',
-    'server'
+    'server'                        // The 'welcome' message
 ]);
 
 // TODO this should come from a configuration
@@ -47,12 +49,15 @@ ws.onopen = function(event) {
     }));
 };
 
+// TODO I don't like storing the client code locally, look at how
+// to implement this in a 'cleaner' way.
 UserActions.serverClientCode.listen(function(content) {
     console.log("UserActions:ws_clientCode ["+content.client_code+"]");
     clientCode = content.client_code;
 });
 
-
+////// Convert user actions into server calls
+// 
 UserActions.loginWithPassword.listen(function(username, password) {
     console.log("UserActions:loginWithPassword");
     ws.send(JSON.stringify({

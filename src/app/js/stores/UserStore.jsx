@@ -23,7 +23,9 @@ var UserStore = Reflux.createStore({
             wsState:        'NOT_CONNECTED'
         };
     },
-    
+
+    // actions caused by server Web Socket messages.
+
     onServerLoginWithPassword: function(content) {
         console.log("UserStore: onServerLoginWithPassword");
         if (content.code === 0) {
