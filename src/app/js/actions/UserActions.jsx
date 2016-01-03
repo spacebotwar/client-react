@@ -12,7 +12,7 @@ var UserActions = Reflux.createActions([
     'serverClientCode',
     'serverLoginWithPassword',
     'serverRegister',
-    'server'                        // The 'welcome' message
+    'serverWelcome'
 ]);
 
 // TODO this should come from a configuration
@@ -58,6 +58,7 @@ UserActions.serverClientCode.listen(function(content) {
 
 ////// Convert user actions into server calls
 // 
+
 UserActions.loginWithPassword.listen(function(username, password) {
     console.log("UserActions:loginWithPassword");
     ws.send(JSON.stringify({

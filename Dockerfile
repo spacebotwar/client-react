@@ -1,6 +1,7 @@
-FROM sbw-client:latest
+FROM node:latest
 
 COPY ${PWD}/src/package.json /src/package.json
+
 RUN npm install --global gulp
 RUN npm install --global bower
 RUN npm install

@@ -1,1 +1,1 @@
-docker build -t sbw-client .
+docker build -t sbw-client-2 .
