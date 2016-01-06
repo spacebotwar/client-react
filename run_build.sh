@@ -1,1 +1,1 @@
-docker build -t sbw-client-2 .
+docker build -t icydee/sbw-client-react .

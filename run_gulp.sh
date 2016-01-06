@@ -1,4 +1,4 @@
-docker run -it --rm -p 8080:8080  -v ${PWD}/src:/src --name=sbw-client-2 sbw-client-2 /bin/bash
+docker run -it --rm -p 8090:8080  -v ${PWD}/src:/src --name=sbw-client-react icydee/sbw-client-react /bin/bash
 # do - 'npm run dev'
 
 
